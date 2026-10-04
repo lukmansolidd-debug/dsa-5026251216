@@ -17,7 +17,7 @@ public class Main {
         File file = new File("src/lw02/prelab/transactions.txt");
         Scanner input = new Scanner(file);
 
-        // Membaca transaksi dari file
+        
         while (input.hasNext()) {
 
             String customerName = input.next();
@@ -32,7 +32,7 @@ public class Main {
 
             transactionList.add(transaction);
 
-            // Mengecek apakah customer sudah ada
+            
             boolean found = false;
 
             for (String[] customer : customerList) {
@@ -42,7 +42,7 @@ public class Main {
                 }
             }
 
-            // Jika belum ada, tambahkan customer dengan saldo awal 0
+            
             if (!found) {
                 String[] newCustomer = {
                         customerName,
@@ -55,7 +55,7 @@ public class Main {
 
         input.close();
 
-        // Memasukkan transaksi ke Queue
+        
         Queue<String[]> transactionQueue = new LinkedList<>();
 
         while (!transactionList.isEmpty()) {
@@ -63,10 +63,10 @@ public class Main {
             transactionQueue.offer(transaction);
         }
 
-        // Menyimpan transaksi withdrawal yang gagal
+        
         Stack<String[]> failedStack = new Stack<>();
 
-        // Memproses transaksi berdasarkan FIFO
+
         while (!transactionQueue.isEmpty()) {
 
             String[] currentTransaction = transactionQueue.poll();
@@ -75,7 +75,7 @@ public class Main {
             String transactionType = currentTransaction[1];
             int amount = Integer.parseInt(currentTransaction[2]);
 
-            // Mencari customer
+    
             for (String[] customer : customerList) {
 
                 if (customer[0].equals(customerName)) {
@@ -105,7 +105,6 @@ public class Main {
             }
         }
 
-        // Menampilkan saldo akhir setiap customer
         System.out.println("=== Final Balances ===");
 
         for (String[] customer : customerList) {
@@ -114,7 +113,6 @@ public class Main {
             );
         }
 
-        // Menampilkan transaksi withdrawal yang gagal
         System.out.println("=== Failed Transactions ===");
 
         while (!failedStack.empty()) {
